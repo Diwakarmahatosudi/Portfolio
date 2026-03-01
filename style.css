@@ -1,0 +1,1150 @@
+/* --- VARIABLES --- */
+:root {
+  --dark-blue: #0a192f;
+  --light-blue: #112240;
+  --lightest-blue: #233554;
+  --light-blue-translucent: rgba(17, 34, 64, 0.65); /* For glass effect */
+  --slate: #8892b0;
+  --light-slate: #a8b2d1;
+  --lightest-slate: #ccd6f6;
+  --white: #e6f1ff;
+  --gold: #ffd369; /* Accent color */
+  --gold-translucent: rgba(255, 211, 105, 0.1);
+  --gold-border: rgba(255, 211, 105, 0.2);
+  
+  --font-sans: 'Montserrat', sans-serif;
+  --font-mono: 'Source Code Pro', monospace;
+  
+  --header-height: 80px;
+}
+
+/* --- GLOBAL RESET & BASE --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--dark-blue);
+  color: var(--slate);
+  line-height: 1.6;
+}
+
+main {
+  padding: 0 150px;
+  position: relative; /* Stacking context for z-index */
+  z-index: 2;
+}
+
+section {
+  min-height: 100vh;
+  padding: 120px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--lightest-slate);
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+p {
+  margin-bottom: 15px;
+  max-width: 600px;
+}
+
+a {
+  color: var(--gold);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: var(--gold);
+  opacity: 0.8;
+}
+
+ul {
+  list-style: none;
+}
+
+/* --- SECTION HEADING ANIMATION --- */
+.section-heading {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--lightest-slate);
+  margin-bottom: 40px;
+  position: relative;
+  width: 100%;
+  padding-bottom: 10px;
+  overflow: hidden;
+}
+
+.section-heading::after {
+  content: "";
+  display: block;
+  width: 150px; /* Width of the animated line */
+  height: 3px;
+  background-color: var(--gold);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-110%); /* Start off-screen */
+  transition: transform 0.8s ease-out;
+}
+
+/* When the section heading has been revealed by AOS */
+.section-heading[data-aos="fade-up"].aos-animate::after {
+  transform: translateX(0);
+}
+
+.cta-button {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--gold);
+  background-color: transparent;
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: var(--gold-translucent);
+  opacity: 1;
+}
+
+/* --- PARTICLE.JS BACKGROUND --- */
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0; /* Behind everything */
+}
+
+/* --- HEADER / NAVIGATION --- */
+.header {
+  position: sticky; /* Sticky header */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  /* Glassmorphism */
+  background-color: rgba(10, 25, 47, 0.85); 
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0); /* Start with no shadow */
+}
+
+.header.header-scrolled {
+  /* More solid background on scroll */
+  background-color: rgba(10, 25, 47, 0.95);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add shadow on scroll */
+}
+
+.nav {
+  height: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* === REVISED LOGO STYLES === */
+.nav-logo a {
+  font-size: 20px; /* Made smaller */
+  font-weight: 700;
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  padding: 3px 8px; /* Reduced padding */
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.nav-logo a:hover {
+    transform: scale(1.1); /* Slightly increase size on hover */
+    opacity: 1;
+}
+
+/* NEW: Animated Logo Class */
+.animated-logo {
+    animation: logo-pulse 2s infinite alternate; /* Apply pulse animation */
+}
+
+@keyframes logo-pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 5px var(--gold-translucent);
+    }
+    100% {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px var(--gold);
+    }
+}
+/* === END REVISED LOGO STYLES === */
+
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--lightest-slate);
+  padding-bottom: 5px;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+.nav-link:hover {
+  color: var(--gold);
+}
+
+/* --- SIDE ELEMENTS --- */
+/* Combined social and email into separate columns on the right */
+.side-links, .side-socials, .side-email-wrapper {
+  display: none; /* Hidden by default on small screens */
+  position: fixed;
+  bottom: 0;
+  width: 40px;
+  z-index: 50;
+  color: var(--slate);
+}
+
+/* Left Side (GitHub, LinkedIn) */
+.side-links {
+  left: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* NEW: Right Side Socials (Facebook, Instagram, X) */
+.side-socials {
+    right: 80px; /* Offset from the email wrapper */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* NEW: Right Side Email */
+.side-email-wrapper {
+    right: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.side-links svg, .side-socials svg {
+  width: 20px;
+  height: 20px;
+  color: var(--slate);
+  transition: all 0.3s ease;
+}
+
+/* Hover for all icons */
+.side-links a:hover svg, .side-socials a:hover svg {
+  color: var(--gold);
+  transform: translateY(-3px);
+}
+
+.side-email-wrapper a {
+  writing-mode: vertical-rl;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--slate);
+  padding: 10px;
+}
+
+.side-email-wrapper a:hover {
+  color: var(--gold);
+  transform: translateY(-3px);
+}
+
+.side-line {
+  width: 1px;
+  height: 90px;
+  background-color: var(--slate);
+}
+
+/* --- MOBILE NAV --- */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 102;
+}
+.nav-hamburger span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background-color: var(--gold);
+  transition: all 0.3s ease;
+}
+.nav-hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.nav-hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.nav-hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: min(75vw, 400px);
+  height: 100vh;
+  background-color: var(--light-blue);
+  z-index: 101;
+  transition: right 0.3s ease-in-out;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+.mobile-nav.open {
+  right: 0;
+}
+.mobile-nav a {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  color: var(--lightest-slate);
+}
+.mobile-nav a:hover {
+  color: var(--gold);
+}
+
+
+/* --- HERO SECTION --- */
+.hero-section {
+  padding-top: 0;
+  justify-content: center;
+}
+
+.hero-intro {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--gold);
+  font-weight: 400;
+}
+
+.hero-name {
+  font-size: 70px;
+  line-height: 1.1;
+  color: var(--lightest-slate);
+}
+
+.hero-tagline {
+  font-size: 50px;
+  line-height: 1.1;
+  color: var(--slate);
+  margin-bottom: 25px;
+  height: 60px; /* Give space for typed.js */
+}
+
+/* Typed.js Cursor */
+#typed-tagline {
+  color: var(--light-slate);
+}
+.typed-cursor {
+  color: var(--gold);
+  font-size: 50px;
+  opacity: 1;
+  animation: blink 0.7s infinite;
+}
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.hero-summary {
+  font-size: 18px;
+  max-width: 540px;
+  margin-bottom: 40px;
+}
+
+/* --- ABOUT SECTION --- */
+.about-content {
+  display: flex;
+  gap: 50px;
+}
+
+.about-text {
+  flex: 3;
+}
+
+/* ============== NEW: MODERN IMAGE FRAME ============== */
+.about-image {
+  flex: 2;
+  position: relative;
+  max-width: 300px;
+  margin: 0 auto; /* Center on mobile */
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 4px;
+  
+  /* This creates a "tint" over the image */
+  background-color: var(--gold); 
+}
+
+/* This is the gray overlay/tint */
+.image-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--light-blue);
+  mix-blend-mode: screen;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+/* This is the offset border frame */
+.image-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 15px; /* Offset */
+  left: 15px; /* Offset */
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  z-index: -1;
+  transition: all 0.3s ease;
+}
+
+/* On hover, remove the tint and move the frame */
+.image-wrapper:hover::after {
+  opacity: 0;
+  mix-blend-mode: normal;
+}
+.image-wrapper:hover::before {
+  top: 10px;
+  left: 10px;
+}
+
+.image-wrapper img {
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+  position: relative;
+  
+  /* This makes the image blend with the 'gold' background */
+  mix-blend-mode: multiply; 
+  filter: grayscale(100%) contrast(1);
+  transition: all 0.3s ease;
+}
+
+/* On hover, reveal the full color image */
+.image-wrapper:hover img {
+  mix-blend-mode: normal;
+  filter: none;
+}
+/* ================================================== */
+
+
+/* --- SKILLS STYLES (MERGED IN ABOUT) --- */
+.skills-heading {
+  font-size: 20px;
+  color: var(--light-slate);
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(140px, 200px));
+  gap: 15px;
+}
+
+.skill-item {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--slate);
+  position: relative;
+  padding-left: 20px;
+  cursor: default;
+  /* New "fade & brighten" hover */
+  transition: all 0.3s ease;
+}
+
+.skill-item::before {
+  content: "▹"; /* Triangle bullet */
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  transition: all 0.3s ease; /* So the bullet also fades smoothly */
+}
+
+.skill-item:hover {
+  opacity: 0.8; /* Fade slightly */
+  color: var(--gold); /* Brighten text to gold */
+  transform: translateX(3px); /* Slight move on hover */
+}
+.skill-item:hover::before {
+  opacity: 0.8; /* Make bullet match */
+}
+
+
+/* --- EXPERIENCE SECTION (TABS) --- */
+.tabs-container {
+  display: flex;
+  gap: 30px;
+  min-height: 300px;
+}
+
+.tab-list {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.tab-button {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  padding: 10px 15px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-left: 2px solid var(--lightest-blue);
+  color: var(--slate);
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+  background-color: var(--gold-translucent);
+  color: var(--gold);
+}
+
+.tab-button.active {
+  color: var(--gold);
+  border-left-color: var(--gold);
+  background-color: var(--light-blue);
+}
+
+.tab-panel {
+  flex: 1;
+}
+
+.tab-panel h3 {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--lightest-slate);
+}
+
+.tab-panel h3 span {
+  color: var(--gold);
+}
+
+.panel-date {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  margin-bottom: 20px;
+  color: var(--light-slate);
+}
+
+.tab-panel ul {
+  max-width: 500px;
+}
+
+.tab-panel li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+}
+
+.tab-panel li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+}
+
+/* --- PROJECTS SECTION (GRID) --- */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.project-card {
+  /* Glassmorphism */
+  background: var(--light-blue-translucent);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--gold-border);
+  border-radius: 4px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* To keep image corners rounded */
+  
+  /* --- NEW: LIFT & GROW ANIMATION --- */
+  will-change: transform, filter, box-shadow;
+  transition: 
+    transform 0.3s ease-out, 
+    filter 0.3s ease-out, 
+    box-shadow 0.3s ease-out;
+}
+
+/* --- NEW: "LIFT & GROW" HOVER EFFECT --- */
+/* This makes the box "grow" (scale) which creates the gap you want */
+.project-card:hover {
+  transform: translateY(-5px) scale(1.03); /* Lift and grow */
+  filter: brightness(1.2); /* Brighten */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.card-image {
+  height: 200px;
+  overflow: hidden;
+}
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.project-card:hover .card-image img {
+  transform: scale(1.05); /* Zoom image on hover */
+}
+
+.card-inner {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  flex-grow: 1;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.card-links {
+  flex-shrink: 0;
+  margin-left: 15px;
+}
+.card-links a svg {
+  width: 22px;
+  height: 22px;
+  color: var(--light-slate);
+  transition: all 0.3s ease;
+}
+
+.card-links a:hover svg {
+  color: var(--gold);
+}
+
+.card-title {
+  font-size: 20px;
+  color: var(--lightest-slate);
+  margin-bottom: 0;
+}
+
+.card-description {
+  font-size: 15px;
+  flex-grow: 1;
+}
+
+.card-tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--light-slate);
+  margin-top: 15px;
+}
+
+/* --- CERTIFICATIONS SECTION --- */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.cert-card {
+  /* Glassmorphism */
+  background: var(--light-blue-translucent);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--gold-border);
+  border-radius: 4px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  /* --- NEW: LIFT & GROW ANIMATION --- */
+  will-change: transform, filter, box-shadow;
+  transition: 
+    transform 0.3s ease-out, 
+    filter 0.3s ease-out, 
+    box-shadow 0.3s ease-out;
+}
+
+/* --- NEW: "LIFT & GROW" HOVER EFFECT --- */
+.cert-card:hover {
+  transform: translateY(-5px) scale(1.03); /* Lift and grow */
+  filter: brightness(1.2); /* Brighten */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.cert-icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.cert-title {
+  font-size: 16px;
+  color: var(--lightest-slate);
+  margin-bottom: 5px;
+}
+
+.cert-issuer {
+  font-size: 14px;
+  color: var(--slate);
+  margin: 0;
+}
+
+/* --- NEW: "CUTE" CONTACT SECTION --- */
+.contact-section {
+  text-align: center;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.section-heading-contact {
+  font-size: 18px;
+  font-family: var(--font-mono);
+  color: var(--gold);
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.contact-title {
+  font-size: 50px;
+  color: var(--lightest-slate);
+  margin-bottom: 20px;
+}
+
+.contact-text {
+  max-width: 500px;
+  margin: 0 auto 40px auto;
+  font-size: 18px;
+}
+
+.cta-button .wave {
+  display: inline-block;
+  animation-name: wave-animation;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  transform-origin: 70% 70%;
+}
+
+@keyframes wave-animation {
+    0% { transform: rotate( 0.0deg) }
+   10% { transform: rotate(14.0deg) }
+   20% { transform: rotate(-8.0deg) }
+   30% { transform: rotate(14.0deg) }
+   40% { transform: rotate(-4.0deg) }
+   50% { transform: rotate(10.0deg) }
+   60% { transform: rotate( 0.0deg) }
+  100% { transform: rotate( 0.0deg) }
+}
+/* ===================================== */
+
+
+/* --- FOOTER --- */
+footer {
+  padding: 25px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--slate);
+  position: relative;
+  z-index: 2;
+}
+
+/* --- SCROLL TO TOP BUTTON --- */
+#scrollTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background-color: var(--gold);
+  color: var(--dark-blue);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+#scrollTopBtn.show {
+  opacity: 1;
+  visibility: visible;
+}
+#scrollTopBtn:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+#scrollTopBtn svg {
+  width: 20px;
+  height: 20px;
+}
+
+
+/* --- RESPONSIVENESS --- */
+@media (max-width: 1080px) {
+  main {
+    padding: 0 100px;
+  }
+  /* Hide all side elements on smaller screens */
+  .side-links, .side-socials, .side-email-wrapper {
+    display: none; 
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    padding: 0 50px;
+  }
+  .nav-links {
+    display: none;
+  }
+  .nav-hamburger {
+    display: flex;
+  }
+  
+  .hero-name {
+    font-size: 50px;
+  }
+  .hero-tagline {
+    font-size: 36px;
+    height: 44px; /* Adjust height */
+  }
+  .typed-cursor {
+    font-size: 36px;
+  }
+  
+  .about-content {
+    flex-direction: column;
+  }
+  .about-image {
+    align-self: center;
+    max-width: 300px; /* Ensure it doesn't get too big */
+  }
+  /* --- Color Variables (Optional, but highly recommended for dark theme) --- */
+:root {
+    --accent-color: #64ffda; /* Light cyan/green for highlights */
+    --text-color-primary: #ccd6f6; /* Light gray for main text */
+    --card-bg: #112240; /* Dark background for cards */
+    --border-color: #304772; /* Subtle border color */
+}
+
+/* --- 1. Responsive Grid Layout --- */
+.cert-grid {
+    display: grid;
+    /* Auto-fit columns: min 300px wide, max 1fr, responsive stacking */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 1.5rem;
+    padding: 0 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- 2. Card Styling and Animation --- */
+.cert-card-interactive {
+    text-decoration: none;
+    color: var(--text-color-primary); 
+    background-color: var(--card-bg); 
+    display: flex;
+    align-items: flex-start;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    /* Smooth transition for all properties being changed on hover (the magic for the effect) */
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* Hover Effect: Subtle Lift and Shadow */
+.cert-card-interactive:hover,
+.cert-card-interactive:focus {
+    /* Increased lift to -8px for a more noticeable movement */
+    transform: translateY(-8px); 
+    /* Deeper shadow for a stronger "pop" effect */
+    box-shadow: 0 20px 40px -10px rgba(2, 12, 27, 1); 
+    outline: none; /* Remove default focus outline */
+    border-color: var(--accent-color); /* Highlight border on hover */
+}
+
+/* --- 3. Internal Element Styles --- */
+.cert-card-interactive .cert-icon {
+    flex-shrink: 0;
+    margin-right: 1rem;
+    color: var(--accent-color);
+    width: 24px;
+    height: 24px;
+}
+
+.cert-card-interactive .cert-details {
+    flex-grow: 1;
+}
+
+.cert-card-interactive .cert-title {
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    font-size: 1.1rem;
+}
+
+.cert-card-interactive .cert-issuer {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #8892b0;
+}
+
+.show-credential-link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    color: var(--accent-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.cert-card-interactive:hover .show-credential-link {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+  .tabs-container {
+    flex-direction: column;
+  }
+  .tab-list {
+    flex-direction: row;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-bottom: 2px solid var(--lightest-blue);
+  }
+  .tab-button {
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    padding: 10px;
+  }
+  .tab-button.active {
+    border-left: none;
+    border-bottom-color: var(--gold);
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 0 25px;
+  }
+  .hero-name {
+    font-size: 40px;
+  }
+  .hero-tagline {
+    font-size: 28px;
+    height: 34px; /* Adjust height */
+  }
+  .typed-cursor {
+    font-size: 28px;
+  }
+  
+  
+  .skill-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-title {
+    font-size: 40px;
+  }
+  
+}
+/* No changes needed for script.js */
+/* --- CONTACT MODAL STYLES --- */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 200; /* Above all content and header */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+    backdrop-filter: blur(5px);
+    padding-top: 50px;
+}
+
+.modal-content {
+    /* Use a light/neutral background color for the Neumorphic effect */
+    background-color: #e0e0e0; 
+    margin: 5% auto; 
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%; 
+    max-width: 600px;
+    position: relative;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5); /* Modal shadow */
+}
+
+.close-btn {
+    color: #333;
+    float: right;
+    font-size: 36px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: var(--gold);
+    text-decoration: none;
+}
+
+/* --- NEUMORPHIC FORM STYLES --- */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.neumorphic-input,
+.neumorphic-textarea {
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 15px;
+    padding: 15px 20px;
+    font-size: 16px;
+    color: #333;
+    transition: all 0.3s ease;
+    flex-grow: 1;
+    /* CORE NEUMORPHISM: Light shadow and dark shadow */
+    box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff; 
+}
+
+.neumorphic-input::placeholder,
+.neumorphic-textarea::placeholder {
+    color: #8892b0; /* Use your slate color */
+}
+
+.neumorphic-input:focus,
+.neumorphic-textarea:focus {
+    outline: none;
+    /* PRESSED EFFECT: Inset shadow */
+    box-shadow: inset 3px 3px 7px #bebebe, inset -3px -3px 7px #ffffff; 
+}
+
+.neumorphic-textarea {
+    min-height: 180px;
+    resize: vertical;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.neumorphic-button {
+    align-self: center;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Button Neumorphism */
+    box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+}
+
+.neumorphic-button:hover {
+    color: var(--gold); /* Highlight text on hover */
+    box-shadow: 7px 7px 15px #bebebe, -7px -7px 15px #ffffff;
+}
+
+.neumorphic-button:active {
+    /* Pressed effect for button */
+    box-shadow: inset 3px 3px 7px #bebebe, inset -3px -3px 7px #ffffff;
+    transform: scale(0.98);
+}
+
+/* Responsive adjustments for the form */
+@media (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .modal-content {
+        margin: 10% auto;
+        padding: 20px;
+    }
+}
