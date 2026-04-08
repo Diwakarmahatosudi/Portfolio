@@ -762,13 +762,29 @@
                     or just want to say hello — I'd love to hear from you. Let's build
                     something amazing together!
                 </p>
-                <a href="mailto:diwakarmahatosudi@gmail.com" class="btn-primary btn-large magnetic-btn">
+                <button id="openContactModalBtn" class="btn-primary btn-large magnetic-btn" style="border:none; cursor:pointer; font-family:var(--font-sans);">
                     <span>Say Hello</span>
                     <span class="wave">👋</span>
-                </a>
+                </button>
             </div>
         </section>
     </main>
+
+    <!-- ===== CONTACT MODAL ===== -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <form action="https://formspree.io/f/xqagyvzz" method="POST" class="contact-form">
+                <div class="form-row">
+                    <input type="text" id="name" name="name" placeholder="Name" required class="neumorphic-input">
+                    <input type="email" id="email" name="email" placeholder="Email" required class="neumorphic-input">
+                </div>
+                <input type="text" id="subject" name="_subject" placeholder="Subject" required class="neumorphic-input full-width">
+                <textarea id="message" name="message" placeholder="Type here..." required class="neumorphic-textarea full-width"></textarea>
+                <button type="submit" class="neumorphic-button">Send Message</button>
+            </form>
+        </div>
+    </div>
 
     <footer>
         <div class="footer-content">
