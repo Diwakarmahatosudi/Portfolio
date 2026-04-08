@@ -655,28 +655,43 @@ ul {
 
 .nav-logo {
   font-family: var(--font-mono);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--accent);
   text-decoration: none;
   position: relative;
   letter-spacing: 2px;
   transition: all 0.3s ease;
+  border: 2px solid var(--accent);
+  padding: 5px 10px;
+  border-radius: 4px;
+  /* Apply pulse animation similar to the original site */
+  animation: logo-pulse 2s infinite alternate;
 }
 
 .nav-logo:hover {
-  color: var(--accent-bright);
+  color: var(--bg-primary);
+  background-color: var(--accent);
+  box-shadow: 0 0 15px var(--accent-bright);
+  transform: scale(1.05);
 }
 
 .logo-bracket {
-  color: var(--accent);
+  color: inherit;
   opacity: 0.7;
-  transition: opacity 0.3s ease;
 }
 
-.nav-logo:hover .logo-bracket {
-  opacity: 1;
+@keyframes logo-pulse {
+  0% {
+      transform: scale(1);
+      box-shadow: 0 0 5px rgba(100, 255, 218, 0.4);
+  }
+  100% {
+      transform: scale(1.03);
+      box-shadow: 0 0 12px var(--accent);
+  }
 }
+
 
 .nav-links {
   display: flex;
