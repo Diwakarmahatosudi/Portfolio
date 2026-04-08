@@ -162,6 +162,47 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ─── CONTACT MODAL FUNCTIONALITY ───
+    const contactModal = document.getElementById('contactModal');
+    const openContactModalBtn = document.getElementById('openContactModalBtn');
+    const closeContactModalBtn = contactModal ? contactModal.querySelector('.close-btn') : null;
+
+    if (openContactModalBtn && contactModal) {
+        openContactModalBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            contactModal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling Behind
+        });
+    }
+
+    const closeContactModal = () => {
+        if (contactModal) {
+            contactModal.style.display = 'none';
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+    };
+
+    if (closeContactModalBtn) {
+        closeContactModalBtn.addEventListener('click', closeContactModal);
+    }
+
+    // Close when clicking outside
+    window.addEventListener('click', (e) => {
+        if (e.target === contactModal) {
+            closeContactModal();
+        }
+    });
+
+    const contactForm = contactModal ? contactModal.querySelector('.contact-form') : null;
+    if (contactForm) {
+        contactForm.addEventListener('submit', () => {
+            setTimeout(() => {
+                closeContactModal();
+                contactForm.reset();
+            }, 600);
+        });
+    }
+
     // ─── TYPED.JS ───
     if (document.getElementById('typed-tagline') && typeof Typed !== 'undefined') {
         new Typed('#typed-tagline', {
