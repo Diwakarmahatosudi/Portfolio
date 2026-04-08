@@ -1311,7 +1311,8 @@ ul {
 
 .project-description p {
   color: var(--text-secondary);
-  font-size: 15px;
+  font-size: 16.5px;
+  line-height: 1.7;
   max-width: none;
   margin: 0;
 }
